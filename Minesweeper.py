@@ -279,6 +279,16 @@ class Minesweeper(object):
             #i.reveal()
 
     def adj_mine_check(self,sqr_index):
+        '''
+        Finds if any mines are adjacent to the current cell
+        and 
+
+        Args:
+            - sqr_index: index of the particular cell in group[]
+
+
+        '''
+        
         # grab the mine for easy reference
         sqr = self._group[sqr_index]
         num = sqr.nearby_mines
@@ -286,66 +296,153 @@ class Minesweeper(object):
         print(num)
 
         #check for adjacent squares
-        if (num == 0 and not sqr._clicked and not sqr._flagged
+        if (num == 0 and sqr._clicked and not sqr._flagged
             and not sqr._mine):
+
             print("asd")
+            sqr.reveal()
+            #make sure the square is identified as being marked by the algo
+            sqr._recursive_algo = True
+            
+            
             if (sqr._col != self.num_col): #check right               
                 for n in range(len(self._group)):
                     sqr_two = self._group[n]
-                    if (sqr_two._row == sqr._row
+                    '''if (sqr_two._row == sqr._row
                         and sqr_two._col == sqr._col+1
-                        and self._group[n].nearby_mines == 0):
-                        self.adj_mine_check(n)
+                        and self._group[n].nearby_mines == 0
+                        and not self._group[n]._recursive_algo):
+                        self.adj_mine_check(n)'''
+                        
+                    if (sqr_two._row == sqr._row
+                        and sqr_two._col == sqr._col+1):
+                        sqr_two.reveal()
+
+                        if (self._group[n].nearby_mines == 0
+                            and not self._group[n]._recursive_algo):
+                                self.adj_mine_check(n)
                    
             if (sqr._col != 1): #check left
                 for n in range(len(self._group)):
-                    if (self._group[n]._row == sqr._row
+                    '''if (self._group[n]._row == sqr._row
                         and self._group[n]._col == sqr._col-1
-                        and self._group[n].nearby_mines == 0):
-                        self.adj_mine_check(n)
+                        and self._group[n].nearby_mines == 0
+                        and not self._group[n]._recursive_algo):
+                        self._group[n].reveal()
+                        self.adj_mine_check(n)'''
+
+                    if (self._group[n]._row == sqr._row
+                        and self._group[n]._col == sqr._col-1):
+                        self._group[n].reveal()
+
+                        if (self._group[n].nearby_mines == 0
+                            and not self._group[n]._recursive_algo):
+                            self.adj_mine_check(n)
 
             if (sqr._row != self.num_row): #check bottom
                 for n in range(len(self._group)):
-                    if (self._group[n]._col == sqr._col
+                    '''if (self._group[n]._col == sqr._col
                         and self._group[n]._row == sqr._row+1
-                        and self._group[n].nearby_mines == 0):
-                        self.adj_mine_check(n)
+                        and self._group[n].nearby_mines == 0
+                        and not self._group[n]._recursive_algo):
+                        self._group[n].reveal()
+                        self.adj_mine_check(n)'''
+
+                    if (self._group[n]._col == sqr._col
+                        and self._group[n]._row == sqr._row+1):
+                        self._group[n].reveal()
+
+                        if (self._group[n].nearby_mines == 0
+                            and not self._group[n]._recursive_algo):
+                                self.adj_mine_check(n)
 
             if (sqr._row != 1): #check top
                 for n in range(len(self._group)):
-                    if (self._group[n]._col == sqr._col
+                    '''if (self._group[n]._col == sqr._col
                         and self._group[n]._row == sqr._row-1
-                        and self._group[n].nearby_mines == 0):
-                        self.adj_mine_check(n)
+                        and self._group[n].nearby_mines == 0
+                        and not self._group[n]._recursive_algo):
+                        self._group[n].reveal()
+                        self.adj_mine_check(n)'''
+
+                    if (self._group[n]._col == sqr._col
+                        and self._group[n]._row == sqr._row-1):
+                        self._group[n].reveal()
+
+                        if (self._group[n].nearby_mines == 0
+                            and not self._group[n]._recursive_algo):
+                                self.adj_mine_check(n)                       
 
             if (sqr._row != 1 and sqr._col != self.num_col): #check top right
                 for n in range(len(self._group)):
-                    if (self._group[n]._col == sqr._col+1
+                    
+                    '''if (self._group[n]._col == sqr._col+1
                         and self._group[n]._row == sqr._row-1
-                        and self._group[n].nearby_mines == 0):
-                        self.adj_mine_check(n)
+                        and self._group[n].nearby_mines == 0
+                        and not self._group[n]._recursive_algo):
+                        self._group[n].reveal()
+                        self.adj_mine_check(n)'''
+
+                    if (self._group[n]._col == sqr._col+1
+                        and self._group[n]._row == sqr._row-1):
+                        
+                        self._group[n].reveal()
+
+                        if (self._group[n].nearby_mines == 0
+                            and not self._group[n]._recursive_algo):
+                            self.adj_mine_check(n)
 
             if (sqr._row != self.num_row and sqr._col != self.num_col): #check bottom right
                 for n in range(len(self._group)):
-                    if (self._group[n]._col == sqr._col+1
+                    '''if (self._group[n]._col == sqr._col+1
                         and self._group[n]._row == sqr._row+1
-                        and self._group[n].nearby_mines == 0):
-                        self.adj_mine_check(n)
+                        and self._group[n].nearby_mines == 0
+                        and not self._group[n]._recursive_algo):
+                        self._group[n].reveal()
+                        self.adj_mine_check(n)'''
+
+                    if (self._group[n]._col == sqr._col+1
+                        and self._group[n]._row == sqr._row+1):
+                        self._group[n].reveal()
+                        
+                        if (self._group[n].nearby_mines == 0
+                            and not self._group[n]._recursive_algo):
+                                self.adj_mine_check(n)
 
             if (sqr._row != self.num_row and sqr._col != 1): #check bottom left
                 for n in range(len(self._group)):
-                    if (self._group[n]._col == sqr._col-1
+                    '''if (self._group[n]._col == sqr._col-1
                         and self._group[n]._row == sqr._row+1
-                        and self._group[n].nearby_mines == 0):
-                        self.adj_mine_check(n)
+                        and self._group[n].nearby_mines == 0
+                        and not self._group[n]._recursive_algo):
+                        self._group[n].reveal()
+                        self.adj_mine_check(n)'''
+
+                    if (self._group[n]._col == sqr._col-1
+                        and self._group[n]._row == sqr._row+1):
+                        self._group[n].reveal()
+
+                        if (self._group[n].nearby_mines == 0
+                            and not self._group[n]._recursive_algo):
+                                self.adj_mine_check(n)
 
             if (sqr._row != 1 and sqr._col != 1): #check top left
                 for n in range(len(self._group)):
-                    if (self._group[n]._col == sqr._col-1
+                    '''if (self._group[n]._col == sqr._col-1
                         and self._group[n]._row == sqr._row-1
-                        and self._group[n].nearby_mines == 0):
-                        self.adj_mine_check(n)
-        sqr.reveal()
+                        and self._group[n].nearby_mines == 0
+                        and not self._group[n]._recursive_algo):
+                        self._group[n].reveal()
+                        self.adj_mine_check(n)'''
+
+                    if (self._group[n]._col == sqr._col-1
+                        and self._group[n]._row == sqr._row-1):
+                        self._group[n].reveal()
+
+                        if (self._group[n].nearby_mines == 0
+                            and not self._group[n]._recursive_algo):
+                                self.adj_mine_check(n)
+        
         
                 
                 
@@ -363,6 +460,7 @@ class Minesweeper(object):
             self._mine = False
             self._flagged = False
             self._clicked = False
+            self._recursive_algo = False
             self.nearby_mines = 0
 
             self._label_dim = 5
