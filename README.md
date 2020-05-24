@@ -5,7 +5,15 @@ Using the Tkinter Python library, I recreated Minesweeper for Python 3.6 onwards
 - Tkinter
 
 ## Visuals
-(to come)
+### Selecting the number of mines
+![select](/visuals/pic1.png)
+
+### Gameplay pictures
+![first](/visuals/pic2.png)
+![second](/visuals/pic3.png)
+
+### Gameover screen (Win/No More Squares)
+![gameover](/visuals/pic4.png)
 
 ## Contributions
 Contributions are more than welcome to this project
